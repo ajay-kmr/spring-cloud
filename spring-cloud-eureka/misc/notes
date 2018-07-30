@@ -1,0 +1,27 @@
+Eureka Terminology
+https://stackoverflow.com/questions/36557646/what-is-eureka-service-eureka-client-eureka-instance-and-eureka-server
+
+Eureka Server
+
+The discovery server. It contains a registry of services and a REST api that can be used to register a service, deregister a service, and discover the location of other services.
+
+Eureka Service
+
+Any application that can be found in the Eureka Server's registry and is discoverable by others. A service has a logical identifier sometimes called a VIP, sometimes called a "service id", that can refer to one or more instances of the same application.
+
+Eureka Instance
+
+Any application that registers itself with the Eureka Server to be discovered by others
+
+Eureka Client
+
+Any application that can discover services
+
+Questions
+How can an application be both a Eureka Instance and a Eureka Client?
+
+Applications often need to make themselves available for use by others (so they are an instance) while at the same time they need to discover other services (so they are a client).
+
+Does a Eureka Client have to be a Eureka Instance?
+
+No. Sometimes an application has nothing to offer and is only a caller of other services. Via configuration (eureka.client.register-with-eureka=false), you can tell it not to register itself as an instance. It is therefore only a Eureka Client as it only discovers other services.

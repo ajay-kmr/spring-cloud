@@ -17,7 +17,6 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@XmlRootElement(name = "response")
 @JacksonXmlRootElement(localName = "response")
 @XmlSeeAlso({ErrorDTO.class, ProductDTO.class})
 public class ResponseDTO<T> implements Serializable {

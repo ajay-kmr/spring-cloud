@@ -1,6 +1,9 @@
 Eureka Terminology
 https://stackoverflow.com/questions/36557646/what-is-eureka-service-eureka-client-eureka-instance-and-eureka-server
 
+https://github.com/Qkyrie/spring-boot-netflix-example
+https://github.com/eugenp/tutorials/tree/master/spring-cloud/spring-cloud-eureka
+
 Eureka Server
 
 The discovery server. It contains a registry of services and a REST api that can be used to register a service, deregister a service, and discover the location of other services.

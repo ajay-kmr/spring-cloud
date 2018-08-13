@@ -1,13 +1,14 @@
 buildscript {
-	ext {
-		springBootVersion = '2.0.4.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-	}
+    ext {
+        springBootVersion = "2.0.4.RELEASE"
+        theSpringCloudVersion = "Finchley.SR1"
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
 }
 
 apply plugin: 'java'
@@ -21,15 +22,36 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
 repositories {
-	mavenCentral()
+    mavenCentral()
+}
+
+dependencyManagement {
+    imports {
+//        mavenBom 'org.springframework.cloud:spring-cloud-dependencies:${theSpringCloudVersion}'
+        mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Finchley.RELEASE'
+
+    }
 }
 
 configurations {
-	providedRuntime
+    providedRuntime
 }
 
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter-web')
-	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+    compile("org.springframework.boot:spring-boot-starter")
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+
+//    compile('org.springframework.boot:spring-boot-starter-web')
+//    providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
+//    testCompile('org.springframework.boot:spring-boot-starter-test')
+
+//	Dependency for setting Eureka server -- Starts --
+//    compile 'org.springframework.cloud:spring-cloud-starter-eureka'
+//    compile 'org.springframework.cloud:spring-cloud-starter-eureka-server'
+//    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-eureka', version: '1.4.5.RELEASE'
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-eureka-server', version: '1.4.5.RELEASE'
+    //Mandatory to add dependency of spring-cloud-context
+//    compile ':spring-cloud-starter-config'
+//    compile ':spring-cloud-starter-eureka'
+//	Dependency for setting Eureka server -- Ends --
 }

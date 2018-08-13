@@ -8,3 +8,6 @@
  */
 
 rootProject.name = 'spring-cloud-eureka'
+include("eureka-server")
+include("globalmart-api")
+include("product-catalog")

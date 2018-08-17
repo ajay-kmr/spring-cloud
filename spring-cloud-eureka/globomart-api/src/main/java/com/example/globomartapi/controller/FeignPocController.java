@@ -10,10 +10,7 @@ import lombok.extern.apachecommons.CommonsLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -35,25 +32,25 @@ public class FeignPocController extends BaseController {
 
     @RequestMapping(method = RequestMethod.POST, consumes = APPLICATION_JSON_UTF8_VALUE, produces = APPLICATION_JSON_UTF8_VALUE,
             value = "sendJsonAndReceiveJson")
-    ResponseDTO<List<ProductDTO>> sendJsonAndReceiveJson(DataTableRequestDTO<List<ProductDTO>> dataTableRequestDTO) {
+    ResponseDTO<List<ProductDTO>> sendJsonAndReceiveJson(@RequestBody DataTableRequestDTO<List<ProductDTO>> dataTableRequestDTO) {
         return feignPocApiClient.sendJsonAndReceiveJson(dataTableRequestDTO);
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = APPLICATION_JSON_UTF8_VALUE, produces = APPLICATION_XML_VALUE,
             value = "sendJsonAndReceiveXml")
-    ResponseDTO<List<ProductDTO>> sendJsonAndReceiveXml(DataTableRequestDTO<List<ProductDTO>> dataTableRequestDTO) {
+    ResponseDTO<List<ProductDTO>> sendJsonAndReceiveXml(@RequestBody DataTableRequestDTO<List<ProductDTO>> dataTableRequestDTO) {
         return feignPocApiClient.sendJsonAndReceiveXml(dataTableRequestDTO);
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = APPLICATION_XML_VALUE, produces = APPLICATION_JSON_UTF8_VALUE,
             value = "sendXmlAndReceiveJson")
-    ResponseDTO<List<ProductDTO>> sendXmlAndReceiveJson(DataTableRequestDTO<List<ProductDTO>> dataTableRequestDTO) {
+    ResponseDTO<List<ProductDTO>> sendXmlAndReceiveJson(@RequestBody DataTableRequestDTO<List<ProductDTO>> dataTableRequestDTO) {
         return feignPocApiClient.sendXmlAndReceiveJson(dataTableRequestDTO);
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = APPLICATION_XML_VALUE, produces = APPLICATION_XML_VALUE,
             value = "sendXmlAndReceiveXml")
-    ResponseDTO<ProductDTO> sendXmlAndReceiveXml(DataTableRequestDTO<List<ProductDTO>> dataTableRequestDTO) {
+    ResponseDTO<ProductDTO> sendXmlAndReceiveXml(@RequestBody DataTableRequestDTO<List<ProductDTO>> dataTableRequestDTO) {
         return feignPocApiClient.sendXmlAndReceiveXml(dataTableRequestDTO);
     }
 
@@ -76,13 +73,13 @@ public class FeignPocController extends BaseController {
      */
     @RequestMapping(method = RequestMethod.POST, consumes = MULTIPART_FORM_DATA_VALUE, produces = APPLICATION_JSON_UTF8_VALUE,
             value = "sendMultiPartAlongWithOtherDataTooAndReceiveJson")
-    ResponseDTO<List<ProductDTO>> sendMultiPartAlongWithOtherDataTooAndReceiveJson(UserDTO userDTO) {
+    ResponseDTO<List<ProductDTO>> sendMultiPartAlongWithOtherDataTooAndReceiveJson(@RequestBody UserDTO userDTO) {
         return feignPocApiClient.sendMultiPartAlongWithOtherDataTooAndReceiveJson(userDTO);
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = APPLICATION_JSON_UTF8_VALUE, produces = MULTIPART_FORM_DATA_VALUE,
             value = "sendJsonAndReceiveMultiPart")
-    ResponseDTO<List<ProductDTO>> sendJsonAndReceiveMultiPart(DataTableRequestDTO<List<ProductDTO>> dataTableRequestDTO) {
+    ResponseDTO<List<ProductDTO>> sendJsonAndReceiveMultiPart(@RequestBody DataTableRequestDTO<List<ProductDTO>> dataTableRequestDTO) {
         return feignPocApiClient.sendJsonAndReceiveMultiPart(dataTableRequestDTO);
     }
 

@@ -36,6 +36,12 @@ public class FeignPocController extends BaseController {
         productDTO.setCatalogName("Sample catalog Name 1");
         productDTO.setType(ProductType.FORMAL_SHIRT);
         productDTOS.add(productDTO);
+        ProductDTO productDTO2 = new ProductDTO();
+        productDTO2.setId(2L);
+        productDTO2.setCatalogId(4L);
+        productDTO2.setCatalogName("Sample catalog Name 2");
+        productDTO2.setType(ProductType.T_SHIRT);
+        productDTOS.add(productDTO2);
         return productDTOS;
     }
 
@@ -47,28 +53,28 @@ public class FeignPocController extends BaseController {
 
     @RequestMapping(method = RequestMethod.POST, consumes = APPLICATION_JSON_UTF8_VALUE, produces = APPLICATION_JSON_UTF8_VALUE,
             value = "consumeJsonAndProduceJson")
-    ResponseDTO<List<ProductDTO>> consumeJsonAndProduceJson(DataTableRequestDTO<List<ProductDTO>> dataTableRequestDTO) {
+    ResponseDTO<List<ProductDTO>> consumeJsonAndProduceJson(@RequestBody DataTableRequestDTO<List<ProductDTO>> dataTableRequestDTO) {
         log.info(String.format("Received request:- %s", dataTableRequestDTO));
         return generateTestResponseDTO();
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = APPLICATION_JSON_UTF8_VALUE, produces = APPLICATION_XML_VALUE,
             value = "consumeJsonAndProduceXml")
-    ResponseDTO<List<ProductDTO>> consumeJsonAndProduceXml(DataTableRequestDTO<List<ProductDTO>> dataTableRequestDTO) {
+    ResponseDTO<List<ProductDTO>> consumeJsonAndProduceXml(@RequestBody DataTableRequestDTO<List<ProductDTO>> dataTableRequestDTO) {
         log.info(String.format("Received request:- %s", dataTableRequestDTO));
         return generateTestResponseDTO();
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = APPLICATION_XML_VALUE, produces = APPLICATION_JSON_UTF8_VALUE,
             value = "consumeXmlAndProduceJson")
-    ResponseDTO<List<ProductDTO>> consumeXmlAndProduceJson(DataTableRequestDTO<List<ProductDTO>> dataTableRequestDTO) {
+    ResponseDTO<List<ProductDTO>> consumeXmlAndProduceJson(@RequestBody DataTableRequestDTO<List<ProductDTO>> dataTableRequestDTO) {
         log.info(String.format("Received request:- %s", dataTableRequestDTO));
         return generateTestResponseDTO();
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = APPLICATION_XML_VALUE, produces = APPLICATION_XML_VALUE,
             value = "consumeXmlAndProduceXml")
-    ResponseDTO<List<ProductDTO>> consumeXmlAndProduceXml(DataTableRequestDTO<List<ProductDTO>> dataTableRequestDTO,
+    ResponseDTO<List<ProductDTO>> consumeXmlAndProduceXml(@RequestBody DataTableRequestDTO<List<ProductDTO>> dataTableRequestDTO,
                                                           @RequestHeader MultiValueMap headers) {
 
         log.info(String.format("Received request header:- %s", headers));
@@ -96,13 +102,13 @@ public class FeignPocController extends BaseController {
      */
     @RequestMapping(method = RequestMethod.POST, consumes = MULTIPART_FORM_DATA_VALUE, produces = APPLICATION_JSON_UTF8_VALUE,
             value = "consumeMultiPartAlongWithOtherDataTooAndProduceJson")
-    ResponseDTO<List<ProductDTO>> consumeMultiPartAlongWithOtherDataTooAndProduceJson(UserDTO userDTO) {
+    ResponseDTO<List<ProductDTO>> consumeMultiPartAlongWithOtherDataTooAndProduceJson(@RequestBody UserDTO userDTO) {
         return generateTestResponseDTO();
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = APPLICATION_JSON_UTF8_VALUE, produces = MULTIPART_FORM_DATA_VALUE,
             value = "consumeJsonAndProduceMultiPart")
-    ResponseDTO<List<ProductDTO>> consumeJsonAndProduceMultiPart(DataTableRequestDTO<List<ProductDTO>> dataTableRequestDTO) {
+    ResponseDTO<List<ProductDTO>> consumeJsonAndProduceMultiPart(@RequestBody DataTableRequestDTO<List<ProductDTO>> dataTableRequestDTO) {
         log.info(String.format("Received request:- %s", dataTableRequestDTO));
         return generateTestResponseDTO();
     }

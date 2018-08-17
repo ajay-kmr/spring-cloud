@@ -1,5 +1,6 @@
 package com.example.globomartapi.controller;
 
+import com.example.globomartapi.dto.DataTableResponseDTO;
 import com.example.globomartapi.dto.ErrorDTO;
 import com.example.globomartapi.dto.ResponseDTO;
 import lombok.extern.apachecommons.CommonsLog;
@@ -18,6 +19,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.FileNotFoundException;
@@ -120,6 +122,14 @@ public class BaseController {
     public void setFlashMessageOnStatus(ResponseDTO responseDTO, RedirectAttributes redirectAttributes) {
         redirectAttributes = responseDTO.getStatus() ? redirectAttributes.addFlashAttribute("success", responseDTO.getMessage()) :
                 redirectAttributes.addFlashAttribute("error", responseDTO.getMessage());
+    }
+
+    protected ModelAndView getModelAndView(String viewName, ResponseDTO responseDTO) {
+        return new ModelAndView(viewName, "response", responseDTO);
+    }
+
+    protected ModelAndView getModelAndView(String viewName, DataTableResponseDTO responseDTO) {
+        return new ModelAndView(viewName, "response", responseDTO);
     }
 
 }

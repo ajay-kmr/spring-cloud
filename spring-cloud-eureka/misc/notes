@@ -28,3 +28,7 @@ Applications often need to make themselves available for use by others (so they 
 Does a Eureka Client have to be a Eureka Instance?
 
 No. Sometimes an application has nothing to offer and is only a caller of other services. Via configuration (eureka.client.register-with-eureka=false), you can tell it not to register itself as an instance. It is therefore only a Eureka Client as it only discovers other services.
+
+
+
+https://www.intertech.com/Blog/jaxb-tutorial-how-to-marshal-and-unmarshal-xml/

@@ -137,7 +137,7 @@ public class FeignPocController extends BaseController {
         return responseDTO;
     }
 
-    @RequestMapping(path = "sample-request-bind-list")
+    @RequestMapping(path = "sample-request-bind-list", consumes = MediaType.APPLICATION_XML_VALUE, produces = MediaType.APPLICATION_XML_VALUE)
     ResponseDTO<List<ProductDTO>> tryToBindToResponseDTOWithListData(@RequestBody ResponseDTO<List<ProductDTO>> responseDTO) {
         return responseDTO;
     }

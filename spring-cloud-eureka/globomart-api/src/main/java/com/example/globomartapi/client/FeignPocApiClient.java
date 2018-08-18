@@ -5,7 +5,6 @@ import com.example.globomartapi.dto.DataTableRequestDTO;
 import com.example.globomartapi.dto.ProductDTO;
 import com.example.globomartapi.dto.ResponseDTO;
 import com.example.globomartapi.dto.UserDTO;
-import feign.Headers;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -23,29 +22,28 @@ public interface FeignPocApiClient {
     Accept indicates the expected content type of the response.
 */
 
-    @Headers("Content-Type: application/json")
+    @ResponseBody
     @RequestMapping(method = RequestMethod.POST, value = "consumeJsonAndProduceJson")
-    ResponseDTO<List<ProductDTO>> sendJsonAndReceiveJson(DataTableRequestDTO<List<ProductDTO>> dataTableRequestDTO);
-
-    @Headers("Content-Type: application/json")
-    @RequestMapping(method = RequestMethod.POST, value = "consumeJsonAndProduceXml")
-    ResponseDTO<List<ProductDTO>> sendJsonAndReceiveXml(DataTableRequestDTO<List<ProductDTO>> dataTableRequestDTO);
-
-    @Headers("Content-Type: application/xml")
-    @RequestMapping(method = RequestMethod.POST, value = "consumeXmlAndProduceJson")
-    ResponseDTO<List<ProductDTO>> sendXmlAndReceiveJson(DataTableRequestDTO<List<ProductDTO>> dataTableRequestDTO);
+    ResponseDTO<List<ProductDTO>> sendJsonAndReceiveJson(@RequestBody DataTableRequestDTO<List<ProductDTO>> dataTableRequestDTO);
 
     @ResponseBody
-    @Headers("Content-Type: application/xml")
+    @RequestMapping(method = RequestMethod.POST, value = "consumeJsonAndProduceXml")
+    ResponseDTO<List<ProductDTO>> sendJsonAndReceiveXml(@RequestBody DataTableRequestDTO<List<ProductDTO>> dataTableRequestDTO);
+
+    @ResponseBody
+    @RequestMapping(method = RequestMethod.POST, value = "consumeXmlAndProduceJson")
+    ResponseDTO<List<ProductDTO>> sendXmlAndReceiveJson(@RequestBody DataTableRequestDTO<List<ProductDTO>> dataTableRequestDTO);
+
+    @ResponseBody
     @RequestMapping(method = RequestMethod.POST, value = "consumeXmlAndProduceXml",
             produces = APPLICATION_XML_VALUE, consumes = APPLICATION_XML_VALUE)
     ResponseDTO<ProductDTO> sendXmlAndReceiveXml(@RequestBody DataTableRequestDTO<List<ProductDTO>> dataTableRequestDTO);
 
-    @Headers("Content-Type: multipart/form-data")
+    @ResponseBody
     @RequestMapping(method = RequestMethod.POST, value = "consumeMultiPartAndProduceJson")
     ResponseDTO<List<ProductDTO>> sendMultiPartAndReceiveJson(@RequestParam("file") MultipartFile multipartFile);
 
-    @Headers("Content-Type: multipart/form-data")
+    @ResponseBody
     @RequestMapping(value = "/uploadMultipleMultPartFile", method = RequestMethod.POST)
     public ResponseDTO<List<ProductDTO>> uploadMultiFile(@RequestParam("files") MultipartFile[] files, ModelMap modelMap);
 
@@ -56,14 +54,15 @@ public interface FeignPocApiClient {
      * @return
      */
 
-    @Headers("Content-Type: multipart/form-data")
+    @ResponseBody
     @RequestMapping(method = RequestMethod.POST, value = "consumeMultiPartAlongWithOtherDataTooAndProduceJson")
-    ResponseDTO<List<ProductDTO>> sendMultiPartAlongWithOtherDataTooAndReceiveJson(UserDTO userDTO);
+    ResponseDTO<List<ProductDTO>> sendMultiPartAlongWithOtherDataTooAndReceiveJson(@RequestBody UserDTO userDTO);
 
-    @Headers("Content-Type: application/json")
+    @ResponseBody
     @RequestMapping(method = RequestMethod.POST, value = "consumeJsonAndProduceMultiPart")
-    ResponseDTO<List<ProductDTO>> sendJsonAndReceiveMultiPart(DataTableRequestDTO<List<ProductDTO>> dataTableRequestDTO);
+    ResponseDTO<List<ProductDTO>> sendJsonAndReceiveMultiPart(@RequestBody DataTableRequestDTO<List<ProductDTO>> dataTableRequestDTO);
 
+    @ResponseBody
     @RequestMapping(method = RequestMethod.POST, value = "downloadFileAsAttachment")
     ResponseEntity downloadFileAsAttachment();
 }

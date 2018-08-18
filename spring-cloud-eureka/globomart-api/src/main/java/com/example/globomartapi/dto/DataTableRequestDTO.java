@@ -1,11 +1,13 @@
 package com.example.globomartapi.dto;
 
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang.StringUtils;
 
 @Getter
 @Setter
+@JacksonXmlRootElement(localName = "request")
 public class DataTableRequestDTO<T> {
 
     private static final String ASC = "asc";

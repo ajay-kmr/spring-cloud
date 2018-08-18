@@ -117,4 +117,13 @@ public class FeignPocController extends BaseController {
     ResponseEntity downloadFileAsAttachment() {
         return null;
     }
+
+    @RequestMapping(path = "sample-request")
+    DataTableRequestDTO<List<ProductDTO>> getSampleDataTableRequestDTO() {
+        DataTableRequestDTO<List<ProductDTO>> requestDTO = new DataTableRequestDTO<>();
+        requestDTO.setPageIndex(13);
+        requestDTO.setPageSize(27);
+        requestDTO.setQuery(generateTestData());
+        return requestDTO;
+    }
 }

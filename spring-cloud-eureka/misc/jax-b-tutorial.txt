@@ -1,7 +1,7 @@
 
 ****************************
 https://www.codesmell.ninja/jackson-supporting-jaxb-annotations/
-
+https://stackify.com/java-xml-jackson/?utm_referrer=https%3A%2F%2Fwww.google.co.in%2F
 ---------
 Spring Framework by default is using JAXB for binding XML schemas and Java objects.
 When we generate our Java representations from XML schema using JAXB, our POJOs will
@@ -70,3 +70,6 @@ https://github.com/FasterXML/jackson-module-jaxb-annotations
 
 
 *******************************************************************************************************
+https://stackoverflow.com/questions/17074380/jackson-list-help-java
+
+https://stackoverflow.com/questions/12904250/jackson-xml-globally-set-element-name-for-container-types

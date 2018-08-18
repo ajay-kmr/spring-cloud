@@ -1,6 +1,7 @@
 package com.example.productcatalog.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang.StringUtils;
@@ -8,6 +9,7 @@ import org.hibernate.criterion.Order;
 
 @Getter
 @Setter
+@JacksonXmlRootElement(localName = "request")
 public class DataTableRequestDTO<T> {
 
     private static final String ASC = "asc";
@@ -56,6 +58,7 @@ public class DataTableRequestDTO<T> {
         return getPageSize();
     }
 
+    @JsonIgnore
     public Integer getOffset() {
         return getPageIndex() * getPageSize();
     }

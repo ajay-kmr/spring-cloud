@@ -1,5 +1,7 @@
 package com.example.productcatalog.conf;
 
+import com.example.productcatalog.conf.jackson.XmlResponseDtoMixin;
+import com.example.productcatalog.dto.ResponseDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.JacksonXmlModule;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
@@ -73,6 +75,7 @@ public class WebMVCConfigurer implements WebMvcConfigurer {
         mapper.enable(READ_ENUMS_USING_TO_STRING);
         mapper.enable(WRITE_ENUMS_USING_TO_STRING);
         mapper.enable(FAIL_ON_UNKNOWN_PROPERTIES);
+        mapper.addMixIn(ResponseDTO.class, XmlResponseDtoMixin.class);
         xmlHttpMessageConverter.setObjectMapper(mapper);
         /*
         AnnotationIntrospector jaxbAnnotationIntrospector = new JaxbAnnotationIntrospector(TypeFactory.defaultInstance());

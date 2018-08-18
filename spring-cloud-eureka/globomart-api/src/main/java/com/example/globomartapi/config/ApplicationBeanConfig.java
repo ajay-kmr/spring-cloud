@@ -5,6 +5,7 @@ import com.example.globomartapi.client.ProductCatalogClient;
 import feign.Client;
 import feign.Contract;
 import feign.Feign;
+import feign.Logger;
 import feign.codec.Decoder;
 import feign.codec.Encoder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +14,6 @@ import org.springframework.cloud.openfeign.FeignClientsConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 @Configuration
 @Import(FeignClientsConfiguration.class)
@@ -49,6 +45,7 @@ public class ApplicationBeanConfig {
                 .encoder(encoder)
                 .decoder(decoder)
                 .contract(contract)
+                .logLevel(Logger.Level.FULL)
 //                .requestInterceptor(new BasicAuthRequestInterceptor("user", "user"))
                 .target(FeignPocApiClient.class, productCatalogUrl);
     }

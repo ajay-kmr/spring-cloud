@@ -1,6 +1,7 @@
 package com.example.globomartapi.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.JacksonXmlModule;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
 import lombok.extern.apachecommons.CommonsLog;
@@ -17,8 +18,7 @@ import java.util.List;
 import java.util.TimeZone;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include;
-import static com.fasterxml.jackson.databind.DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT;
-import static com.fasterxml.jackson.databind.DeserializationFeature.READ_ENUMS_USING_TO_STRING;
+import static com.fasterxml.jackson.databind.DeserializationFeature.*;
 import static com.fasterxml.jackson.databind.SerializationFeature.WRITE_ENUMS_USING_TO_STRING;
 
 @Configuration
@@ -31,32 +31,57 @@ public class WebMVCConfigurer implements WebMvcConfigurer {
     }
 
     @Override
-    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        converters.add(getJackson2HttpMessageConverter());
-        converters.add(getMappingJackson2XmlHttpMessageConverter());
+    public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+        converters.forEach(it -> {
+            if (it instanceof MappingJackson2HttpMessageConverter) {
+                configureMappingJackson2HttpMessageConverter((MappingJackson2HttpMessageConverter) it);
+                log.info("*********** Overriding Configuration of MappingJackson2HttpMessageConverter");
+            } else if (it instanceof MappingJackson2XmlHttpMessageConverter) {
+                log.info("*********** Overriding Configuration of MappingJackson2XmlHttpMessageConverter");
+                configureMappingJackson2XmlHttpMessageConverter((MappingJackson2XmlHttpMessageConverter) it);
+            } else {
+                log.info(String.format("*********** %s is configured with default configuration", it));
+            }
+        });
+
     }
 
-    private MappingJackson2HttpMessageConverter getJackson2HttpMessageConverter() {
-        final MappingJackson2HttpMessageConverter jsonHttpMessageConverter = new MappingJackson2HttpMessageConverter();
+    private void configureMappingJackson2HttpMessageConverter(MappingJackson2HttpMessageConverter jsonHttpMessageConverter) {
         ObjectMapper objectMapper = jsonHttpMessageConverter.getObjectMapper();
         objectMapper.setTimeZone(TimeZone.getTimeZone("UTC"));
-        objectMapper.enable(WRITE_ENUMS_USING_TO_STRING);
+        objectMapper.enable(ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
         objectMapper.setSerializationInclusion(Include.NON_EMPTY);
         objectMapper.enable(READ_ENUMS_USING_TO_STRING);
-        objectMapper.enable(ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
-        return jsonHttpMessageConverter;
+        objectMapper.enable(WRITE_ENUMS_USING_TO_STRING);
+        objectMapper.disable(FAIL_ON_UNKNOWN_PROPERTIES);
+//        objectMapper.enable(ACCEPT_SINGLE_VALUE_AS_ARRAY);
+
+        // TODO leverage NamingStrategy to make response attributes more Java-like
+//        objectMapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
     }
 
-    private MappingJackson2XmlHttpMessageConverter getMappingJackson2XmlHttpMessageConverter() {
-        final MappingJackson2XmlHttpMessageConverter xmlHttpMessageConverter = new MappingJackson2XmlHttpMessageConverter();
-        xmlHttpMessageConverter.setObjectMapper(createXmlMapper());
-        return xmlHttpMessageConverter;
-    }
+    private void configureMappingJackson2XmlHttpMessageConverter(MappingJackson2XmlHttpMessageConverter xmlHttpMessageConverter) {
+        JacksonXmlModule xmlModule = new JacksonXmlModule();
+        // and then configure, for example:
+        xmlModule.setDefaultUseWrapper(Boolean.TRUE);
 
-    private XmlMapper createXmlMapper() {
-        final XmlMapper mapper = new XmlMapper();
+        final XmlMapper mapper = new XmlMapper(xmlModule);
         mapper.registerModule(new JaxbAnnotationModule());
-        return mapper;
+        mapper.setTimeZone(TimeZone.getTimeZone("UTC"));
+        mapper.enable(WRITE_ENUMS_USING_TO_STRING);
+        mapper.setSerializationInclusion(Include.NON_EMPTY);
+        mapper.enable(ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
+        mapper.enable(READ_ENUMS_USING_TO_STRING);
+        mapper.enable(FAIL_ON_UNKNOWN_PROPERTIES);
+        xmlHttpMessageConverter.setObjectMapper(mapper);
+        /*
+        AnnotationIntrospector jaxbAnnotationIntrospector = new JaxbAnnotationIntrospector(TypeFactory.defaultInstance());
+        // make serializer use JAXB annotations (only)
+        SerializationConfig sc = mapper.getSerializationConfig();
+        sc.with(jaxbAnnotationIntrospector)
+                .with(INDENT_OUTPUT);
+
+*/
     }
 
     @Bean(name = "multipartResolver")

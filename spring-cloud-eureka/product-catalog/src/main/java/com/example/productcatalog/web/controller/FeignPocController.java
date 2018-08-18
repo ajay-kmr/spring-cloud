@@ -4,6 +4,7 @@ package com.example.productcatalog.web.controller;
 import com.example.productcatalog.dto.*;
 import com.example.productcatalog.enums.ProductType;
 import lombok.extern.apachecommons.CommonsLog;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.MultiValueMap;
@@ -128,4 +129,17 @@ public class FeignPocController extends BaseController {
         requestDTO.setQuery(generateTestData());
         return requestDTO;
     }
+
+    @RequestMapping(path = "sample-request-bind",
+            consumes = {MediaType.APPLICATION_XML_VALUE, APPLICATION_JSON_UTF8_VALUE},
+            produces = {MediaType.APPLICATION_XML_VALUE, APPLICATION_JSON_UTF8_VALUE})
+    ResponseDTO<ProductDTO> tryToBindToResponseDTOWithSimpleData(@RequestBody ResponseDTO<ProductDTO> responseDTO) {
+        return responseDTO;
+    }
+
+    @RequestMapping(path = "sample-request-bind-list")
+    ResponseDTO<List<ProductDTO>> tryToBindToResponseDTOWithListData(@RequestBody ResponseDTO<List<ProductDTO>> responseDTO) {
+        return responseDTO;
+    }
+
 }

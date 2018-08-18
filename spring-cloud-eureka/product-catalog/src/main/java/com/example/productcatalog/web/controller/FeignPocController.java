@@ -1,10 +1,7 @@
 package com.example.productcatalog.web.controller;
 
 
-import com.example.productcatalog.dto.DataTableRequestDTO;
-import com.example.productcatalog.dto.ProductDTO;
-import com.example.productcatalog.dto.ResponseDTO;
-import com.example.productcatalog.dto.UserDTO;
+import com.example.productcatalog.dto.*;
 import com.example.productcatalog.enums.ProductType;
 import lombok.extern.apachecommons.CommonsLog;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.springframework.http.MediaType.*;
@@ -45,10 +43,14 @@ public class FeignPocController extends BaseController {
         return productDTOS;
     }
 
+    public List<ErrorDTO> createTestErrors() {
+        return Arrays.asList(new ErrorDTO("Code 1", "Message 1"), new ErrorDTO("Code 1", "Message 1"));
+    }
+
     private ResponseDTO<List<ProductDTO>> generateTestResponseDTO() {
         return new ResponseDTO<List<ProductDTO>>(Boolean.TRUE,
                 getMessage("request.processed.successfully"),
-                generateTestData());
+                generateTestData(), createTestErrors());
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = APPLICATION_JSON_UTF8_VALUE, produces = APPLICATION_JSON_UTF8_VALUE,

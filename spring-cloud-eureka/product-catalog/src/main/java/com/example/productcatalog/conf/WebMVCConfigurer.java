@@ -68,7 +68,7 @@ public class WebMVCConfigurer implements WebMvcConfigurer {
         final XmlMapper mapper = new XmlMapper(xmlModule);
         mapper.registerModule(new JaxbAnnotationModule());
         mapper.setTimeZone(TimeZone.getTimeZone("UTC"));
-        mapper.setSerializationInclusion(Include.NON_NULL);
+        mapper.setSerializationInclusion(Include.NON_EMPTY);
         mapper.enable(ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
         mapper.enable(READ_ENUMS_USING_TO_STRING);
         mapper.enable(WRITE_ENUMS_USING_TO_STRING);

@@ -1,5 +1,6 @@
 package com.example.productcatalog.conf;
 
+import com.example.productcatalog.conf.jackson.JsonResponseDtoMixin;
 import com.example.productcatalog.conf.jackson.XmlResponseDtoMixin;
 import com.example.productcatalog.dto.ResponseDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -60,6 +61,7 @@ public class WebMVCConfigurer implements WebMvcConfigurer {
 
         // TODO leverage NamingStrategy to make response attributes more Java-like
 //        objectMapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+        objectMapper.addMixIn(ResponseDTO.class, JsonResponseDtoMixin.class);
     }
 
     private void configureMappingJackson2XmlHttpMessageConverter(MappingJackson2XmlHttpMessageConverter xmlHttpMessageConverter) {
@@ -77,14 +79,6 @@ public class WebMVCConfigurer implements WebMvcConfigurer {
         mapper.enable(FAIL_ON_UNKNOWN_PROPERTIES);
         mapper.addMixIn(ResponseDTO.class, XmlResponseDtoMixin.class);
         xmlHttpMessageConverter.setObjectMapper(mapper);
-        /*
-        AnnotationIntrospector jaxbAnnotationIntrospector = new JaxbAnnotationIntrospector(TypeFactory.defaultInstance());
-        // make serializer use JAXB annotations (only)
-        SerializationConfig sc = mapper.getSerializationConfig();
-        sc.with(jaxbAnnotationIntrospector)
-                .with(INDENT_OUTPUT);
-
-*/
     }
 
     @Bean(name = "multipartResolver")

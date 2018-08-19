@@ -32,7 +32,8 @@ public class XmlResponseDtoMixin<T> extends ResponseDTO<T> {
 
     @Override
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    @JacksonXmlProperty(localName = "data")
+//    @XmlElement(name = "data-item")
+    @JacksonXmlProperty(localName = "data-item")
     public T getDataForXmlAsSingleNode() {
         //Do Nothing as the Mixin is used for separating annotation only..
         // It does not perform any business logic or code injection
@@ -46,6 +47,8 @@ public class XmlResponseDtoMixin<T> extends ResponseDTO<T> {
      * @return
      */
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
+//    @XmlElementWrapper(name = "data-items")
+//    @XmlElement(name = "item")
     @JacksonXmlElementWrapper(localName = "data-items")
     @JacksonXmlProperty(localName = "item")
     public Collection getDataForXmlAsCollection() {

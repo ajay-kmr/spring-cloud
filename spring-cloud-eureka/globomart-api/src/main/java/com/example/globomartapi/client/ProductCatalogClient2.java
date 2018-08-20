@@ -14,7 +14,7 @@ public interface ProductCatalogClient2 {
     ResponseDTO<CatalogDTO> createCatalog(@RequestBody CatalogDTO requestDTO);
 
     @RequestLine("POST /v1/catalog/search")
-    DataTableResponseDTO<CatalogDTO, List<CatalogDTO>> searchCatalog(@RequestBody DataTableRequestDTO<CatalogDTO> requestDTO);
+    DataTableResponseDTO<List<CatalogDTO>> searchCatalog(@RequestBody DataTableRequestDTO<CatalogDTO> requestDTO);
 
     @RequestLine("POST /v1/product/create")
     ResponseDTO<ProductDTO> createProduct(@RequestBody ProductDTO requestDTO);
@@ -23,5 +23,5 @@ public interface ProductCatalogClient2 {
     ResponseDTO<ProductDTO> removeProduct(@RequestBody ProductDTO requestDTO);
 
     @RequestLine("POST /v1/product/search")
-    DataTableResponseDTO<ProductDTO, List<ProductDTO>> searchProduct(@RequestBody DataTableRequestDTO<ProductDTO> requestDTO);
+    DataTableResponseDTO<List<ProductDTO>> searchProduct(@RequestBody DataTableRequestDTO<ProductDTO> requestDTO);
 }

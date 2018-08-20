@@ -34,7 +34,7 @@ public class CatalogAdminController extends BaseController {
 
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public ModelAndView searchCatalog(@RequestBody DataTableRequestDTO<CatalogDTO> requestDTO) {
-        DataTableResponseDTO<CatalogDTO, List<CatalogDTO>> responseDTO = catalogService.searchCatalog(requestDTO);
+        DataTableResponseDTO<List<CatalogDTO>> responseDTO = catalogService.searchCatalog(requestDTO);
         return getModelAndView("testView2", responseDTO);
     }
 
@@ -44,7 +44,7 @@ public class CatalogAdminController extends BaseController {
         CatalogDTO catalogDTO = new CatalogDTO();
         catalogDTO.setId(id);
         requestDTO.setQuery(catalogDTO);
-        DataTableResponseDTO<CatalogDTO, List<CatalogDTO>> responseDTO = catalogService.searchCatalog(requestDTO);
+        DataTableResponseDTO<List<CatalogDTO>> responseDTO = catalogService.searchCatalog(requestDTO);
         return getModelAndView("testView3", responseDTO);
     }
 

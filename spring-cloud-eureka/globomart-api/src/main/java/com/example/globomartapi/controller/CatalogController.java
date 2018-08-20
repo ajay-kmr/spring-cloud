@@ -28,7 +28,7 @@ public class CatalogController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/search", method = RequestMethod.POST)
-    public DataTableResponseDTO<CatalogDTO, List<CatalogDTO>> searchCatalog(@RequestBody DataTableRequestDTO<CatalogDTO> requestDTO) {
+    public DataTableResponseDTO<List<CatalogDTO>> searchCatalog(@RequestBody DataTableRequestDTO<CatalogDTO> requestDTO) {
         return catalogService.searchCatalog(requestDTO);
     }
 }

@@ -15,7 +15,7 @@ public interface ProductCatalogClient {
     ResponseDTO<CatalogDTO> createCatalog(@RequestBody CatalogDTO requestDTO);
 
     @RequestMapping(method = RequestMethod.POST, value = "/v1/catalog/search", consumes = "application/json")
-    DataTableResponseDTO<CatalogDTO, List<CatalogDTO>> searchCatalog(@RequestBody DataTableRequestDTO<CatalogDTO> requestDTO);
+    DataTableResponseDTO<List<CatalogDTO>> searchCatalog(@RequestBody DataTableRequestDTO<CatalogDTO> requestDTO);
 
     @RequestMapping(method = RequestMethod.POST, value = "/v1/product/create", consumes = "application/json")
     ResponseDTO<ProductDTO> createProduct(@RequestBody ProductDTO requestDTO);
@@ -24,5 +24,5 @@ public interface ProductCatalogClient {
     ResponseDTO<ProductDTO> removeProduct(@RequestBody ProductDTO requestDTO);
 
     @RequestMapping(method = RequestMethod.POST, value = "/v1/product/search", consumes = "application/json")
-    DataTableResponseDTO<ProductDTO, List<ProductDTO>> searchProduct(@RequestBody DataTableRequestDTO<ProductDTO> requestDTO);
+    DataTableResponseDTO<List<ProductDTO>> searchProduct(@RequestBody DataTableRequestDTO<ProductDTO> requestDTO);
 }

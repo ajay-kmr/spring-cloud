@@ -70,7 +70,7 @@ public class ProductServiceImpl extends BaseServiceImpl implements ProductServic
         return responseDTO;
     }
 
-    public DataTableResponseDTO<ProductDTO, List<ProductDTO>> searchProduct(DataTableRequestDTO<ProductDTO> requestDTO) {
+    public DataTableResponseDTO<List<ProductDTO>> searchProduct(DataTableRequestDTO<ProductDTO> requestDTO) {
         return productRepoService.searchProduct(requestDTO);
     }
 }

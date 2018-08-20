@@ -23,7 +23,7 @@ public class CatalogServiceImpl extends BaseServiceImpl implements CatalogServic
     }
 
     @Override
-    public DataTableResponseDTO<CatalogDTO, List<CatalogDTO>> searchCatalog(DataTableRequestDTO<CatalogDTO> requestDTO) {
+    public DataTableResponseDTO<List<CatalogDTO>> searchCatalog(DataTableRequestDTO<CatalogDTO> requestDTO) {
         return productCatalogClient.searchCatalog(requestDTO);
     }
 }

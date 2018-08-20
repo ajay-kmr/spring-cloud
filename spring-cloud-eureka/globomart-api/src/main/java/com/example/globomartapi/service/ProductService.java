@@ -13,5 +13,5 @@ public interface ProductService {
 
     ResponseDTO<ProductDTO> removeProduct(ProductDTO requestDTO);
 
-    DataTableResponseDTO<ProductDTO, List<ProductDTO>> searchProduct(DataTableRequestDTO<ProductDTO> requestDTO);
+    DataTableResponseDTO<List<ProductDTO>> searchProduct(DataTableRequestDTO<ProductDTO> requestDTO);
 }

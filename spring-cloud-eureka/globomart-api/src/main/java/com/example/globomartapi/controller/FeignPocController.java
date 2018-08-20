@@ -50,7 +50,7 @@ public class FeignPocController extends BaseController {
 
     @RequestMapping(method = RequestMethod.POST, consumes = APPLICATION_XML_VALUE, produces = APPLICATION_XML_VALUE,
             value = "sendXmlAndReceiveXml")
-    ResponseDTO<ProductDTO> sendXmlAndReceiveXml(@RequestBody DataTableRequestDTO<List<ProductDTO>> dataTableRequestDTO) {
+    ResponseDTO<List<ProductDTO>> sendXmlAndReceiveXml(@RequestBody DataTableRequestDTO<List<ProductDTO>> dataTableRequestDTO) {
         return feignPocApiClient.sendXmlAndReceiveXml(dataTableRequestDTO);
     }
 

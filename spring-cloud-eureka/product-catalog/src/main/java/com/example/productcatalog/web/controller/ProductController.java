@@ -34,7 +34,7 @@ public class ProductController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/search", method = RequestMethod.POST)
-    public DataTableResponseDTO<ProductDTO, List<ProductDTO>> searchProduct(@RequestBody DataTableRequestDTO<ProductDTO> requestDTO) {
+    public DataTableResponseDTO<List<ProductDTO>> searchProduct(@RequestBody DataTableRequestDTO<ProductDTO> requestDTO) {
         return productService.searchProduct(requestDTO);
     }
 }

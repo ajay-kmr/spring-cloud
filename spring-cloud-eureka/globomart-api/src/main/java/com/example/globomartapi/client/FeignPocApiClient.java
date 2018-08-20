@@ -5,6 +5,7 @@ import com.example.globomartapi.dto.DataTableRequestDTO;
 import com.example.globomartapi.dto.ProductDTO;
 import com.example.globomartapi.dto.ResponseDTO;
 import com.example.globomartapi.dto.UserDTO;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 import static org.springframework.http.MediaType.APPLICATION_XML_VALUE;
 
 @RequestMapping("v1/feign/poc")
@@ -27,17 +29,19 @@ public interface FeignPocApiClient {
     ResponseDTO<List<ProductDTO>> sendJsonAndReceiveJson(@RequestBody DataTableRequestDTO<List<ProductDTO>> dataTableRequestDTO);
 
     @ResponseBody
-    @RequestMapping(method = RequestMethod.POST, value = "consumeJsonAndProduceXml")
+    @RequestMapping(method = RequestMethod.POST, value = "consumeJsonAndProduceXml",
+            consumes = APPLICATION_JSON_UTF8_VALUE, produces = APPLICATION_XML_VALUE)
     ResponseDTO<List<ProductDTO>> sendJsonAndReceiveXml(@RequestBody DataTableRequestDTO<List<ProductDTO>> dataTableRequestDTO);
 
     @ResponseBody
-    @RequestMapping(method = RequestMethod.POST, value = "consumeXmlAndProduceJson")
+    @RequestMapping(method = RequestMethod.POST, value = "consumeXmlAndProduceJson",
+            consumes = APPLICATION_XML_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     ResponseDTO<List<ProductDTO>> sendXmlAndReceiveJson(@RequestBody DataTableRequestDTO<List<ProductDTO>> dataTableRequestDTO);
 
     @ResponseBody
     @RequestMapping(method = RequestMethod.POST, value = "consumeXmlAndProduceXml",
             produces = APPLICATION_XML_VALUE, consumes = APPLICATION_XML_VALUE)
-    ResponseDTO<ProductDTO> sendXmlAndReceiveXml(@RequestBody DataTableRequestDTO<List<ProductDTO>> dataTableRequestDTO);
+    ResponseDTO<List<ProductDTO>> sendXmlAndReceiveXml(@RequestBody DataTableRequestDTO<List<ProductDTO>> dataTableRequestDTO);
 
     @ResponseBody
     @RequestMapping(method = RequestMethod.POST, value = "consumeMultiPartAndProduceJson")

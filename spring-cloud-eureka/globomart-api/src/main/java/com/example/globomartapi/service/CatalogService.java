@@ -11,5 +11,5 @@ public interface CatalogService {
 
     ResponseDTO<CatalogDTO> createCatalog(CatalogDTO requestDTO);
 
-    DataTableResponseDTO<CatalogDTO, List<CatalogDTO>> searchCatalog(DataTableRequestDTO<CatalogDTO> requestDTO);
+    DataTableResponseDTO<List<CatalogDTO>> searchCatalog(DataTableRequestDTO<CatalogDTO> requestDTO);
 }

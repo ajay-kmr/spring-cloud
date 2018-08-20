@@ -36,7 +36,7 @@ public class CatalogRepoService extends BaseRepoService<Catalog, Long> {
     }
 
     @SuppressWarnings("unchecked")
-    public DataTableResponseDTO<CatalogDTO, List<CatalogDTO>> searchCatalog(DataTableRequestDTO<CatalogDTO> requestDTO) {
+    public DataTableResponseDTO<List<CatalogDTO>> searchCatalog(DataTableRequestDTO<CatalogDTO> requestDTO) {
         Criteria criteria = getCriteria();
         CatalogDTO catalogDTO = requestDTO.getQuery();
         if (catalogDTO != null) {

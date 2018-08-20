@@ -27,7 +27,7 @@ public class ProductServiceImpl extends BaseServiceImpl implements ProductServic
         return productCatalogClient.removeProduct(requestDTO);
     }
 
-    public DataTableResponseDTO<ProductDTO, List<ProductDTO>> searchProduct(DataTableRequestDTO<ProductDTO> requestDTO) {
+    public DataTableResponseDTO<List<ProductDTO>> searchProduct(DataTableRequestDTO<ProductDTO> requestDTO) {
         return productCatalogClient.searchProduct(requestDTO);
     }
 }

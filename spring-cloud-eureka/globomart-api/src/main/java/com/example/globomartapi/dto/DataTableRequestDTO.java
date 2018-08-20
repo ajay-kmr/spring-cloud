@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.Collection;
+
 @Getter
 @Setter
 @JacksonXmlRootElement(localName = "request")
@@ -41,4 +43,29 @@ public class DataTableRequestDTO<T> {
         }
         return pageIndex;
     }
+
+
+    /*getter/setter used for decorating XML request/response --STARTS--*/
+    public Collection getDataForXmlAsCollection() {
+        if (this.query instanceof Collection) {
+            return (Collection) this.query;
+        }
+        return null;
+    }
+
+    public void setDataForXmlAsCollection(T dataForXmlAsCollection) {
+        this.query = dataForXmlAsCollection;
+    }
+
+    public T getDataForXmlAsSingleNode() {
+        if (!(this.query instanceof Collection)) {
+            return this.query;
+        }
+        return null;
+    }
+
+    public void setDataForXmlAsSingleNode(T dataForXmlAsSingleNode) {
+        this.query = dataForXmlAsSingleNode;
+    }
+    /*getter/setter used for decorating XML request/response --ENDS--*/
 }

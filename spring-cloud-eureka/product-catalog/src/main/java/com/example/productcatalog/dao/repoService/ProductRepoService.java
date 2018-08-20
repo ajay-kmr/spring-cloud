@@ -37,7 +37,7 @@ public class ProductRepoService extends BaseRepoService<Product, Long> {
     }
 
     @SuppressWarnings("unchecked")
-    public DataTableResponseDTO<ProductDTO, List<ProductDTO>> searchProduct(DataTableRequestDTO<ProductDTO> requestDTO) {
+    public DataTableResponseDTO<List<ProductDTO>> searchProduct(DataTableRequestDTO<ProductDTO> requestDTO) {
         Criteria criteria = getCriteria();
         criteria.createAlias("catalog", "catalog_", JoinType.LEFT_OUTER_JOIN);
         ProductDTO productDTO = requestDTO.getQuery();

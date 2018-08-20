@@ -37,7 +37,7 @@ public class CatalogServiceImpl extends BaseServiceImpl implements CatalogServic
         return responseDTO;
     }
 
-    public DataTableResponseDTO<CatalogDTO, List<CatalogDTO>> searchCatalog(DataTableRequestDTO<CatalogDTO> requestDTO) {
+    public DataTableResponseDTO<List<CatalogDTO>> searchCatalog(DataTableRequestDTO<CatalogDTO> requestDTO) {
         return catalogRepoService.searchCatalog(requestDTO);
     }
 }

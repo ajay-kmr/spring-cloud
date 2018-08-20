@@ -1,5 +1,9 @@
 package com.example.globomartapi.config;
 
+import com.example.globomartapi.config.jackson.*;
+import com.example.globomartapi.dto.DataTableRequestDTO;
+import com.example.globomartapi.dto.DataTableResponseDTO;
+import com.example.globomartapi.dto.ResponseDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.JacksonXmlModule;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
@@ -10,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
+import org.springframework.web.filter.CommonsRequestLoggingFilter;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -54,6 +59,9 @@ public class WebMVCConfigurer implements WebMvcConfigurer {
         objectMapper.enable(READ_ENUMS_USING_TO_STRING);
         objectMapper.enable(WRITE_ENUMS_USING_TO_STRING);
         objectMapper.disable(FAIL_ON_UNKNOWN_PROPERTIES);
+        objectMapper.addMixIn(DataTableRequestDTO.class, JsonDataTableRequestDtoMixin.class);
+        objectMapper.addMixIn(DataTableResponseDTO.class, JsonDataTableResponseDtoMixin.class);
+        objectMapper.addMixIn(ResponseDTO.class, JsonResponseDtoMixin.class);
 //        objectMapper.enable(ACCEPT_SINGLE_VALUE_AS_ARRAY);
 
         // TODO leverage NamingStrategy to make response attributes more Java-like
@@ -73,6 +81,9 @@ public class WebMVCConfigurer implements WebMvcConfigurer {
         mapper.enable(ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
         mapper.enable(READ_ENUMS_USING_TO_STRING);
         mapper.enable(FAIL_ON_UNKNOWN_PROPERTIES);
+        mapper.addMixIn(DataTableRequestDTO.class, XmlDataTableRequestDtoMixin.class);
+        mapper.addMixIn(DataTableResponseDTO.class, XmlDataTableResponseDtoMixin.class);
+        mapper.addMixIn(ResponseDTO.class, XmlResponseDtoMixin.class);
         xmlHttpMessageConverter.setObjectMapper(mapper);
         /*
         AnnotationIntrospector jaxbAnnotationIntrospector = new JaxbAnnotationIntrospector(TypeFactory.defaultInstance());
@@ -89,5 +100,17 @@ public class WebMVCConfigurer implements WebMvcConfigurer {
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
         multipartResolver.setMaxUploadSize(100000);
         return multipartResolver;
+    }
+
+    @Bean
+    public CommonsRequestLoggingFilter logFilter() {
+        CommonsRequestLoggingFilter filter
+                = new CommonsRequestLoggingFilter();
+        filter.setIncludeQueryString(true);
+        filter.setMaxPayloadLength(10000);
+        filter.setIncludePayload(true);
+        filter.setIncludeHeaders(false);
+        filter.setAfterMessagePrefix("REQUEST DATA : ");
+        return filter;
     }
 }
